@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="action@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.2">
+    <root id="1"/>
+    <database id="2" parent="1" name="action">
+      <ObjectId>57858</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2017-09-05.13:39:55.142</IntrospectionTimestamp>
+      <IntrospectionStateNumber>19222</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="5" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="6" parent="2" name="pg_temp_1">
+      <ObjectId>11320</ObjectId>
+    </schema>
+    <schema id="7" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11321</ObjectId>
+    </schema>
+    <schema id="8" parent="2" name="information_schema">
+      <ObjectId>11585</ObjectId>
+    </schema>
+    <sequence id="9" parent="3" name="global_seq">
+      <ObjectId>57879</ObjectId>
+      <StateNumber>19220</StateNumber>
+      <SequenceIdentity>1</SequenceIdentity>
+    </sequence>
+    <table id="10" parent="3" name="actions">
+      <ObjectId>57890</ObjectId>
+      <StateNumber>19222</StateNumber>
+    </table>
+    <table id="11" parent="3" name="gifts">
+      <ObjectId>57881</ObjectId>
+      <StateNumber>19221</StateNumber>
+    </table>
+    <column id="12" parent="10" name="actionid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>19222</StateNumber>
+      <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="13" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>19222</StateNumber>
+    </column>
+    <column id="14" parent="10" name="amount">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>19222</StateNumber>
+    </column>
+    <index id="15" parent="10" name="actions_pkey">
+      <ObjectId>57897</ObjectId>
+      <ColNames>actionid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="16" parent="10" name="actions_pkey">
+      <ObjectId>57898</ObjectId>
+      <ColNames>actionid</ColNames>
+      <UnderlyingIndexName>actions_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="17" parent="11" name="giftid">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>19221</StateNumber>
+      <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="18" parent="11" name="name">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>19221</StateNumber>
+    </column>
+    <column id="19" parent="11" name="quantity">
+      <Position>3</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>19221</StateNumber>
+    </column>
+    <index id="20" parent="11" name="gifts_pkey">
+      <ObjectId>57888</ObjectId>
+      <ColNames>giftid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="11" name="gifts_pkey">
+      <ObjectId>57889</ObjectId>
+      <ColNames>giftid</ColNames>
+      <UnderlyingIndexName>gifts_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
