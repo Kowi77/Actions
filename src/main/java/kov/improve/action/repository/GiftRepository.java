@@ -1,7 +1,6 @@
-package kov.main.repository;
+package kov.improve.action.repository;
 
-import kov.main.model.Gift;
-import org.springframework.data.domain.Example;
+import kov.improve.action.model.Gift;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +13,12 @@ public interface GiftRepository extends JpaRepository<Gift, Integer> {
 
     List<Gift> findAllByQuantityGreaterThanOrderByNameAsc(int ZERO);
 
-    List<Gift> findAllByQuantityGreaterThanAndByNameContainsOrderByNameAsc(int ZERO, String part);
+    List<Gift> findAllByQuantityGreaterThanAndNameContainsOrderByNameAsc(int ZERO, String part);
 
  /*   @Transactional
     List<Gift> save(Gift gift);*/
 
     Gift getOne(int id);
 
-    Gift findOne(Gift gift);
+    Gift findOne(int id);
 }

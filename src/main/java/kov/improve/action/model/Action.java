@@ -1,4 +1,4 @@
-package kov.main.model;
+package kov.improve.action.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.persistence.*;

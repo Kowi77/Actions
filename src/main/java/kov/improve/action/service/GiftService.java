@@ -1,7 +1,7 @@
-package kov.main.service;
+package kov.improve.action.service;
 
-import kov.main.model.Gift;
-import kov.main.repository.GiftRepository;
+import kov.improve.action.repository.GiftRepository;
+import kov.improve.action.model.Gift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class GiftService {
     }
 
     List<Gift> getAllWithFilter(String part){
-        return repository.findAllByQuantityGreaterThanAndByNameContainsOrderByNameAsc(0, part);
+        return repository.findAllByQuantityGreaterThanAndNameContainsOrderByNameAsc(0, part);
     }
 
     Gift get (int id){
@@ -28,4 +28,8 @@ public class GiftService {
     void save (Gift gift){
         repository.save(gift);
     }
+
+   /* Gift findOne(int id) {
+       return repository.findOne(id);
+    }*/
 }

@@ -1,4 +1,4 @@
-package kov.main.config;
+package kov.improve.action.config;
 import org.hibernate.ejb.HibernatePersistence;
 import org.hibernate.ejb.HibernatePersistence;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +18,9 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("kov.main")
-@PropertySource("classpath:db.properties")
-@EnableJpaRepositories("kov.main.repository")
+@ComponentScan("kov.improve.action")
+@PropertySource("classpath:db/db.properties")
+@EnableJpaRepositories("kov.improve.action.repository")
 public class DataConfig {
 
     private static final String PROP_DATABASE_DRIVER = "db.driver";
