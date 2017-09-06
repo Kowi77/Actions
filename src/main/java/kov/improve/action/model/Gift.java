@@ -28,4 +28,5 @@ public class Gift {
     @Column(name = "quantity")
     @NotNull
     private int quantity;
+
 }

@@ -15,8 +15,7 @@ public interface GiftRepository extends JpaRepository<Gift, Integer> {
 
     List<Gift> findAllByQuantityGreaterThanAndNameContainsOrderByNameAsc(int ZERO, String part);
 
- /*   @Transactional
-    List<Gift> save(Gift gift);*/
+    Gift save(Gift gift);
 
     Gift getOne(int id);
 

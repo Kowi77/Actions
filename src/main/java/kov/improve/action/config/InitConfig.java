@@ -17,7 +17,7 @@ public class InitConfig implements WebApplicationInitializer {
     public void onStartup(ServletContext container) throws ServletException {
         // Создание корневого контекста Spring
         AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        rootContext.register(AppConfig.class);
+        //rootContext.register(AppConfig.class);
         rootContext.register(DataConfig.class);
 
         // Листенер для управления жизненным циклом корневого контекста Spring
