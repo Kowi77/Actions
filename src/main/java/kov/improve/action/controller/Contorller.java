@@ -1,22 +1,16 @@
 package kov.improve.action.controller;
 
-import kov.improve.action.config.DataConfig;
 import kov.improve.action.model.Action;
 import kov.improve.action.model.Gift;
 import kov.improve.action.service.ActionService;
 import kov.improve.action.service.GiftService;
-import org.hibernate.annotations.SQLInsert;
+import kov.improve.action.utils.ControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/")
@@ -35,11 +29,21 @@ public class Contorller {
 
     @GetMapping("{id}")
     public String getAction(@PathVariable("id") int id, Model model){
-        model.addAttribute("action", actionService.get(id));
-        model.addAttribute("gifts", giftService.getAll());
+        Action action = actionService.get(id);
+        model.addAttribute("action",action);
+        model.addAttribute("gifts", ControllerUtils.getGiftsForActualAction(giftService.getAll(), action.getAmount()));
         model.addAttribute("message", "");
         return "action";
      }
+
+    @GetMapping("filtered/{id}")
+    public String getFilteredAction(@PathVariable("id") int id, Model model, HttpServletRequest request){
+        Action action = actionService.get(id);
+        model.addAttribute("action", action);
+        model.addAttribute("gifts", ControllerUtils.getGiftsForActualAction(giftService.getAllWithFilter(request.getParameter("part")), action.getAmount()));
+        model.addAttribute("message", "");
+        return "action";
+    }
 
     @PostMapping("{id}")
     public String getGift(@PathVariable("id") int id, HttpServletRequest request, Model model){
@@ -55,12 +59,15 @@ public class Contorller {
         }
         String message = result == null ? "К сожалению, подарок " + gift.getName() + " недоступен"
                          : "Поздравляем с получением " + gift.getName() + "!";
+        // количество подарков по акции могло изменится, поэтому запрашиваем заново
         Action resultAction = actionService.get(currentAction);
         model.addAttribute("message", message);
         model.addAttribute("action", resultAction);
-        model.addAttribute("gifts", resultAction.getAmount() > 0 ? giftService.getAll() : new ArrayList<Gift>());
+        model.addAttribute("gifts", ControllerUtils.getGiftsForActualAction(giftService.getAll(), resultAction.getAmount()));
         return "action";
     }
+
+
 
 
 }

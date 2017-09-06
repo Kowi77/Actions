@@ -5,6 +5,8 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/kov/main/config/DataConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/kov/improve/action/config/AppConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/kov/improve/action/config/WebConfig.java</file>
         </fileset>
       </configuration>
     </facet>

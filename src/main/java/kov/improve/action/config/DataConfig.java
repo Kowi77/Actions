@@ -1,18 +1,20 @@
 package kov.improve.action.config;
 import org.hibernate.ejb.HibernatePersistence;
-import org.hibernate.ejb.HibernatePersistence;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -34,7 +36,7 @@ public class DataConfig {
     private static final String PROP_HIBERNATE_LAZY_LOAD = "hibernate.enable_lazy_load_no_trans";
     private static final String PROP_HIBERNATE_SQL_COMMENT = "hibernate.use_sql_comments";
 
-    @Resource
+    @javax.annotation.Resource
     private Environment env;
 
     @Bean
@@ -55,9 +57,7 @@ public class DataConfig {
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
         entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_ENTITYMANAGER_PACKAGES_TO_SCAN));
-
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
-
         return entityManagerFactoryBean;
     }
 
@@ -76,10 +76,29 @@ public class DataConfig {
         properties.put(PROP_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROP_HIBERNATE_HBM2DDL_AUTO));
         properties.put(PROP_HIBERNATE_LAZY_LOAD, env.getRequiredProperty(PROP_HIBERNATE_LAZY_LOAD));
         properties.put(PROP_HIBERNATE_SQL_COMMENT, env.getRequiredProperty(PROP_HIBERNATE_SQL_COMMENT));
-        properties.put("spring.jpa.hibernate.ddl-auto", env.getRequiredProperty("spring.jpa.hibernate.ddl-auto"));
-        properties.put("javax.persistence.schema-generation.scripts.action", env.getRequiredProperty("javax.persistence.schema-generation.scripts.action"));
-        properties.put("javax.persistence.schema-generation.scripts.create-target", env.getRequiredProperty("javax.persistence.schema-generation.scripts.create-target"));
         return properties;
+    }
+
+
+    @Value("classpath:db/schema.sql")
+    private Resource dbschemaSqlScript;
+    @Value("classpath:db/data.sql")
+    private Resource testDataSqlScript;
+
+    @Bean
+    public DataSourceInitializer dataSourceInitializer() {
+        final DataSourceInitializer initializer = new DataSourceInitializer();
+        initializer.setDataSource(dataSource());//getDriverManagerDataSource());
+        initializer.setDatabasePopulator(getDatabasePopulator());
+        return initializer;
+    }
+
+    private DatabasePopulator getDatabasePopulator() {
+        final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
+        populator.setSqlScriptEncoding("utf-8");
+        populator.addScript(dbschemaSqlScript);
+        populator.addScript(testDataSqlScript);
+        return populator;
     }
 
 }

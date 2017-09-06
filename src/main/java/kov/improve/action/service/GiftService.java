@@ -1,7 +1,6 @@
 package kov.improve.action.service;
 
 import kov.improve.action.model.Action;
-import kov.improve.action.repository.ActionRepository;
 import kov.improve.action.repository.GiftRepository;
 import kov.improve.action.model.Gift;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class GiftService {
     }
 
     public List<Gift> getAllWithFilter(String part){
-        return repository.findAllByQuantityGreaterThanAndNameContainsOrderByNameAsc(0, part);
+        return repository.findAllByQuantityGreaterThanAndNameContainsAllIgnoreCaseOrderByNameAsc(0, part);
     }
 
     public Gift get (int id){
@@ -41,8 +40,4 @@ public class GiftService {
             throw new Exception("Выдача подарка не состоялась!");
         return result;
     }
-
-   /* Gift findOne(int id) {
-       return repository.findOne(id);
-    }*/
 }
