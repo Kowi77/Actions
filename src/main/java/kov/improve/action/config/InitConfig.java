@@ -15,40 +15,28 @@ public class InitConfig implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext container) throws ServletException {
-        // Создание корневого контекста Spring
-        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-        //rootContext.register(AppConfig.class);
-        rootContext.register(DataConfig.class);
 
-        // Листенер для управления жизненным циклом корневого контекста Spring
+        AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
+            rootContext.register(DataConfig.class);
+
         container.addListener(new ContextLoaderListener(rootContext));
 
-        // Создание контекста Spring для сервлета-диспетчера Spring MVC
         AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
-        dispatcherContext.register(WebConfig.class);
+             dispatcherContext.register(WebConfig.class);
 
-        // Регистрация сервлета-диспетчера Spring MVC
         ServletRegistration.Dynamic dispatcher =
-                container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
-        // Отдельный маппинг для главной страницы приложения
-        dispatcher.addMapping("/index");
+             container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
+             dispatcher.setLoadOnStartup(1);
+             dispatcher.addMapping("/");
+             dispatcher.addMapping("/index");
 
-        // Установка параметров контейнера
         container.setInitParameter("defaultHtmlEscape", "true");
 
-        // Регистрация других сервлетов и фильтров
-
-        // Например, фильтра для установки кодировки символов приложения
         FilterRegistration charEncodingFilterReg =
-                container.addFilter("CharacterEncodingFilter", CharacterEncodingFilter.class);
-        charEncodingFilterReg.setInitParameter("encoding", "UTF-8");
-        charEncodingFilterReg.setInitParameter("forceEncoding", "true");
-        charEncodingFilterReg.addMappingForUrlPatterns(null, false, "/*");
-
-        // ...
+             container.addFilter("CharacterEncodingFilter", CharacterEncodingFilter.class);
+             charEncodingFilterReg.setInitParameter("encoding", "UTF-8");
+             charEncodingFilterReg.setInitParameter("forceEncoding", "true");
+             charEncodingFilterReg.addMappingForUrlPatterns(null, false, "/*");
     }
-
 }
 

@@ -11,9 +11,10 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface GiftRepository extends JpaRepository<Gift, Integer> {
 
-    List<Gift> findAllByQuantityGreaterThanOrderByNameAsc(int ZERO);
 
-    List<Gift> findAllByQuantityGreaterThanAndNameContainsAllIgnoreCaseOrderByNameAsc(int ZERO, String part);
+    List<Gift> findAllByQuantityGreaterThanOrderByNameAsc(int quantity);
+
+    List<Gift> findAllByQuantityGreaterThanAndNameContainsAllIgnoreCaseOrderByNameAsc(int quantity, String part);
 
     Gift save(Gift gift);
 

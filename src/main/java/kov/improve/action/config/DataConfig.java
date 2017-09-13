@@ -32,7 +32,6 @@ public class DataConfig {
     private static final String PROP_HIBERNATE_DIALECT = "db.hibernate.dialect";
     private static final String PROP_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
     private static final String PROP_ENTITYMANAGER_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
-    private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
     private static final String PROP_HIBERNATE_LAZY_LOAD = "hibernate.enable_lazy_load_no_trans";
     private static final String PROP_HIBERNATE_SQL_COMMENT = "hibernate.use_sql_comments";
 
@@ -73,12 +72,10 @@ public class DataConfig {
         Properties properties = new Properties();
         properties.put(PROP_HIBERNATE_DIALECT, env.getRequiredProperty(PROP_HIBERNATE_DIALECT));
         properties.put(PROP_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROP_HIBERNATE_SHOW_SQL));
-        properties.put(PROP_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROP_HIBERNATE_HBM2DDL_AUTO));
         properties.put(PROP_HIBERNATE_LAZY_LOAD, env.getRequiredProperty(PROP_HIBERNATE_LAZY_LOAD));
         properties.put(PROP_HIBERNATE_SQL_COMMENT, env.getRequiredProperty(PROP_HIBERNATE_SQL_COMMENT));
         return properties;
     }
-
 
     @Value("classpath:db/schema.sql")
     private Resource dbschemaSqlScript;
@@ -88,7 +85,7 @@ public class DataConfig {
     @Bean
     public DataSourceInitializer dataSourceInitializer() {
         final DataSourceInitializer initializer = new DataSourceInitializer();
-        initializer.setDataSource(dataSource());//getDriverManagerDataSource());
+        initializer.setDataSource(dataSource());
         initializer.setDatabasePopulator(getDatabasePopulator());
         return initializer;
     }

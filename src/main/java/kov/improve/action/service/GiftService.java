@@ -13,6 +13,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class GiftService {
 
+    public static final int ZERO = 0;
+
     @Autowired
     GiftRepository repository;
 
@@ -20,11 +22,11 @@ public class GiftService {
     ActionService actionService;
 
     public List<Gift> getAll() {
-        return repository.findAllByQuantityGreaterThanOrderByNameAsc(0);
+        return repository.findAllByQuantityGreaterThanOrderByNameAsc(ZERO);
     }
 
     public List<Gift> getAllWithFilter(String part){
-        return repository.findAllByQuantityGreaterThanAndNameContainsAllIgnoreCaseOrderByNameAsc(0, part);
+        return repository.findAllByQuantityGreaterThanAndNameContainsAllIgnoreCaseOrderByNameAsc(ZERO, part);
     }
 
     public Gift get (int id){
