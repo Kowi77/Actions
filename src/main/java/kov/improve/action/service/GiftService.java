@@ -15,11 +15,14 @@ public class GiftService {
 
     public static final int ZERO = 0;
 
-    @Autowired
     GiftRepository repository;
+    ActionService actionService;
 
     @Autowired
-    ActionService actionService;
+    public GiftService(GiftRepository repository, ActionService actionService) {
+        this.repository = repository;
+        this.actionService = actionService;
+    }
 
     public List<Gift> getAll() {
         return repository.findAllByQuantityGreaterThanOrderByNameAsc(ZERO);

@@ -16,11 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/")
 public class Contorller {
 
-    @Autowired
     GiftService giftService;
+    ActionService actionService;
 
     @Autowired
-    ActionService actionService;
+    public Contorller(GiftService giftService, ActionService actionService) {
+        this.giftService = giftService;
+        this.actionService = actionService;
+    }
 
     @GetMapping("")
     public String homePage(Model model) {

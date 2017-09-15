@@ -10,14 +10,14 @@
 <body>
 <h1>Акция ${action.name}</h1>
 <br>
-<a href="/">Вернуться к выбору акции</a>
+<a href="">Вернуться к выбору акции</a>
 <br><br>
 <h3>Осталось подарков: ${action.amount}</h3>
 <br><br>
 <form action="filtered/${action.id}" method="get">
-    <input type ="${gifts.isEmpty() ? 'hidden' : ''}" name = "part" value = ${part}>
-    <input type ="${gifts.isEmpty() ? 'hidden' : 'submit'}" value="Фильтровать">
-    <input type="${gifts.isEmpty() ? 'hidden' : 'button'}" onclick="return location.href =${action.id}" value="Показать все">
+    <input type ="${action.amount < 1 ? 'hidden' : ''}" name = "part" value = ${part}>
+    <input type ="${action.amount < 1 ? 'hidden' : 'submit'}" value="Фильтровать">
+    <input type="${action.amount < 1 ? 'hidden' : 'button'}" onclick="return location.href =${action.id}" value="Показать все">
 </form>
 
 <br>

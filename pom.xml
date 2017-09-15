@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>kov.inprove</groupId>
+    <groupId>kov.improve</groupId>
     <artifactId>action</artifactId>
     <packaging>war</packaging>
     <version>1.0.RELEASE</version>
@@ -15,9 +15,6 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
-                        <configuration>
-                                <path>/</path>
-                        </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class ActionService {
 
-    @Autowired
     ActionRepository repository;
+
+    @Autowired
+    public ActionService(ActionRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Action> getAll(){
         return repository.findAllByAmountGreaterThanOrderByNameAsc(0);
