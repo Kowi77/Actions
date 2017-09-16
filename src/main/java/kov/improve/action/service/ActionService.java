@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class ActionService {
 
-    ActionRepository repository;
+    private ActionRepository repository;
 
     @Autowired
     public ActionService(ActionRepository repository) {

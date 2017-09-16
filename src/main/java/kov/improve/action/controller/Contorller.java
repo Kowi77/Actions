@@ -62,7 +62,6 @@ public class Contorller {
         }
         String message = result == null ? "К сожалению, подарок " + gift.getName() + " недоступен"
                          : "Поздравляем с получением " + gift.getName() + "!";
-        // количество подарков по акции могло изменится, поэтому запрашиваем заново
         Action resultAction = actionService.get(currentAction);
         model.addAttribute("message", message);
         model.addAttribute("action", resultAction);

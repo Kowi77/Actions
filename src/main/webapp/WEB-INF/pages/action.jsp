@@ -8,34 +8,34 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
     <script type="text/javascript" src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js" defer></script>
-    <title>Акция ${action.name}</title>
+    <title>Акция "${action.name}"</title>
     <style>
-        .jumbotron{
-            padding: 80px 120px;
-        }
+        body { font-size: 20px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-
     <h1>Акция ${action.name}</h1>
-    <br>
-    <a href="">
-        <span class="glyphicon glyphicon-arrow-left" cursor="pointer" aria-hidden="true"></span>  Вернуться к выбору акции
-    </a>
-    <br><br>
-    <h3>Осталось подарков: ${action.amount}</h3>
-    <br><br>
-    <form action="filtered/${action.id}" method="get">
-        <input type ="${action.amount < 1 ? 'hidden' : ''}" name = "part" value = ${part}>
-        <input type ="${action.amount < 1 ? 'hidden' : 'submit'}" class="glyphicon glyphicon-filter" value="Фильтровать">
-        <input type="${action.amount < 1 ? 'hidden' : 'button'}" onclick="return location.href =${action.id}"
-               class="glyphicon glyphicon-remove" style="color: red" value="Показать все">
-    </form>
+        <br>
+        <a href="">
+            <span class="glyphicon glyphicon-arrow-left" cursor="pointer" aria-hidden="true"></span>  Вернуться к выбору акции
+        </a>
+        <br>
+        <h3>Осталось подарков: ${action.amount}</h3>
+        <br>
+    <div class="jumbotron" style="${action.amount < 1 ? 'display:none' : ''}">
+        <form action="filtered/${action.id}" method="get">
+            <input name = "part" value = ${part}>
+            <button type ="submit" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-filter" cursor="pointer"></span> Фильтровать
+            </button>
+            <button type="reset" onclick="return location.href =${action.id}" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-remove" style="color: red" cursor="pointer"></span> Показать все
+            </button>
+        </form>
+        <br>
 
-    <br>
-    <div class="jumbotron">
         <c:forEach items="${gifts}" var="gift">
             <form action="${gift.id}" method="post">
                 <input type="hidden" name = "currentAction" value = ${action.id}>
@@ -45,9 +45,9 @@
             </form>
         </c:forEach>
     </div>
-    <br>
-    <br>
-    ${message}
+    <div type="${message.isEmpty() ? 'hidden' : ''}" class="${message.startsWith("К") ? "alert alert-warning" : "alert alert-success"}">
+        <strong>${message}</strong>
+    </div>
 </div>
 </body>
 </html>

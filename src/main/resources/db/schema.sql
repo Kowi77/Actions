@@ -11,7 +11,8 @@ CREATE TABLE gifts
   quantity     INTEGER NOT NULL
 );
 
-CREATE TABLE actions (
+CREATE TABLE actions
+(
   actionId    INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name         TEXT NOT NULL,
   amount       INTEGER
